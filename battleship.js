@@ -38,18 +38,18 @@ function battleShipBoard() {
         array.push(temp);
     }
     for (let i = 0; i <= ships.length-1; i++) {
-        randomShipPosition(array, ships[i]);
+        randomShipPosition(ships[i]);
     }
 
     return array;
 }
 
-function randomShipPosition(array, ships) {
+function randomShipPosition(ships) {
     let verticalOrHorizontal = randomVerticalOrHorizontal();
     if (verticalOrHorizontal === "Horizontal") {
-        changePosition(array, ships, verticalOrHorizontal);
+        changePosition(ships, verticalOrHorizontal);
     } else {
-        changePosition(array, ships, verticalOrHorizontal);
+        changePosition(ships, verticalOrHorizontal);
     }
 }
 
@@ -60,7 +60,7 @@ function randomIndex() {
     return index;
 }
 
-function changePosition(array, ships, verticalOrHorizontal) {
+function changePosition(ships, verticalOrHorizontal) {
     let isVacant = false;
 
     while (isVacant === false) {
@@ -93,19 +93,22 @@ function changePosition(array, ships, verticalOrHorizontal) {
             }
         }
         if (isVacant === true) {
-            if (verticalOrHorizontal === "Horizontal") {
-                for (let i = index; i <= index + ships.size; i++) {
-                    array[getIndex[0]][i] = ships.name;
-                }
-            } else {
-                for (let i = index; i <= index + ships.size; i++) {
-                    array[i][getIndex[1]] = ships.name;
-                }
-            }
-           
+            placingShips(index, getIndex, ships, verticalOrHorizontal);
         } 
     }
 } 
+
+function placingShips (index, getIndex, ships, type) {
+    if (type === "Horizontal") {
+        for (let i = index; i <= index + ships.size; i++) {
+            array[getIndex[0]][i] = ships.name;
+        }
+    } else {
+        for (let i = index; i <= index + ships.size; i++) {
+            array[i][getIndex[1]] = ships.name;
+        }
+    }
+}
 
 function randomVerticalOrHorizontal() {
     let array = ["Vertical", "Horizontal"];
@@ -113,7 +116,7 @@ function randomVerticalOrHorizontal() {
     return array[index];
 }
 
-function bomb(target, array) {
+function bomb(target) {
     let indexHorizontal = index[target[0]];
     let indexVertical = Number(target[1]);
     let result = '';
@@ -128,6 +131,7 @@ function bomb(target, array) {
     console.log(array); 
     console.log(result);
 }
+
 function checkWhoGotBombed(type) {
     for (let i = 0; i <= ships.length-1; i++) {
         if (ships[i].name === type) {
