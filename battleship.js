@@ -15,7 +15,6 @@ let command = process.argv.slice(2);
 
 function playing() {
     battleShipBoard();
-    console.clear();
     bomb(command[0], array)
 }
 playing();
