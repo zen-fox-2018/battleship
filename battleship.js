@@ -7,22 +7,26 @@ var allBomb = koordinate()
 var objKapal = [{
         name: 'Aircraft carrier',
         size: 5,
-        coordinate: {i:0,j:0}
+        coordinate: {i:0,j:0},
+        icon: 'a'
     },
     {
         name: 'Battleship',
         size: 4,
-        coordinate: {i:0,j:0}
+        coordinate: {i:0,j:0},
+        icon: 'b'
     },
     {
         name: 'Cruiser',
         size: 3,
-        coordinate: {i:0,j:0}
+        coordinate: {i:0,j:0},
+        icon: 'c'
     },
     {
         name: 'Destroyer',
         size: 2,
-        coordinate: {i:0,j:0}
+        coordinate: {i:0,j:0},
+        icon: 'd'
     }
 ]
 
@@ -123,9 +127,9 @@ function GenerateKapal(allKapal,boardGameParam){
             }else{
                 for(let i = 0;i < allKapal[kapal].size; i++){
                     if(vertiORHori == 1){
-                        boardGameParam[corI][corJ+i] = 'i'
+                        boardGameParam[corI][corJ+i] = allKapal[kapal].icon
                     }else{
-                        boardGameParam[corI+i][corJ] = 'i'
+                        boardGameParam[corI+i][corJ] = allKapal[kapal].icon
                     }
                 }
             }
