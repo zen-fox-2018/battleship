@@ -132,6 +132,3 @@ function battleShip () {
   }
 }
 battleShip();
-// console.log(checkPosition(shipVertical(generateBoard(), getIndex(), 5)));
-// console.log(input);
-// console.log(throwBomb(generateBoard()));
