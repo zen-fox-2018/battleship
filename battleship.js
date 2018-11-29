@@ -1,7 +1,7 @@
 // Your code here
 let column = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 let input = process.argv.slice(2);
-input = input.map(e => e.toUpperCase()).map(e => [column.indexOf(e[0])+1, +(e[1])]);
+input = input.map(e => e.toUpperCase()).map(e => [column.indexOf(e[0])+1, +(e.slice(1))]);
 
 function generateBoard () {
   let myBoard = [];
@@ -86,6 +86,13 @@ function checkPosition (obj) {
 }
 
 function battleShip () {
+  if (input.length > 10 || !input.length) {
+    console.log(`UNTUK MENAJALANKAN GAME BATTLE SHIP KETIKKAN COMMAND BERIKUT
+    node battleship.js [koordinat, bom1] [koordinat, bom2] [koordinat, bom3] .....
+                          NOTE -  * koordinat bom = ['A-J', '1 - 10']
+                                  * jumlah bom maksimal adalah 10`);
+    return '';
+  }
   let counter = 0;
   let shipCatalog = {
     'Aircraft carrier' : [5, 'A'],
