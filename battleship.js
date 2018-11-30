@@ -40,36 +40,47 @@ function randomPos() {
 
 }
 
+function getDirection() {
+    return Math.round(Math.random())
+}
+
 
 function buatKapal(size) {
 
 
     let kordinat = randomPos();
-    // console.log('                 random kordinat', kordinat, '\n');
-
-
+    let arah = getDirection();
     let X = kordinat[0]
     let Y = kordinat[1]
+    console.log('                 random kordinat', kordinat, '\n');
+
 
     for (let i = 0; i < size; i++) {
-        while (!cekBatas(X, Y, size)) {
+        while (cekBatas(X, Y, size)) {
             kordinat = randomPos()
-
+            arah = getDirection()
             X = kordinat[0]
             Y = kordinat[1]
+
         }
 
+        if (arah === 0) {
+            laut[X+i][Y] = 'X'
+        } else {
+            laut[X][Y+i] = 'T'
+        }
+        
     }
 }
 
 
 
+function cekBatas(x, y, size, arah) {
 
-function cekBatas(x, y, size) {
+    let checker = false
 
-    let checker = true
-    if (y + size > 10) {
-        checker = false
+    if (y + size > 10 || x + size > 10) {
+        checker = true
     }
     return checker
 }
@@ -78,4 +89,5 @@ buatKapal(2)
 buatKapal(3)
 buatKapal(4)
 buatKapal(5)
+
 console.log(laut);
