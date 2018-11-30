@@ -40,35 +40,23 @@ function getIndex() {
   return [Math.ceil(Math.random() * 10), Math.ceil(Math.random() * 10)]
 }
 
-function shipHorizontal (board, index, shipSize, char) {
+function shipPlace (board, index, direction, shipSize, char) {
   let objResult = {
     arr : [],
     indexArr : []
   };
   for (let i = 0; i < shipSize; i++) {
-    objResult.arr.push(board[index[0]][index[1] + i]);
-    objResult.indexArr.push([index[0], index[1] + i]);
-  }
-  if(checkPosition(objResult)) {
-    objResult.indexArr.forEach( e => {
-      board[e[0]][e[1]] = char;
-    });
-  }
-  return checkPosition(objResult);
-}
-
-function shipVertical (board, index, shipSize, char) {
-  let objResult = {
-    arr : [],
-    indexArr : []
-  };
-  for (let i = 0; i < shipSize; i++) {
-    if (index[0] + i <= 10) {
-      objResult.arr.push(board[index[0] + i][index[1]]);
-      objResult.indexArr.push([index[0] + i, index[1]]);
+    if(direction) {
+      if (index[0] + i <= 10) {
+        objResult.arr.push(board[index[0] + i][index[1]]);
+        objResult.indexArr.push([index[0] + i, index[1]]);
+      } else {
+        objResult.arr.push('x');
+        objResult.indexArr.push([index[0], index[1]]);
+      }
     } else {
-      objResult.arr.push('x');
-      objResult.indexArr.push([index[0], index[1]]);
+      objResult.arr.push(board[index[0]][index[1] + i]);
+      objResult.indexArr.push([index[0], index[1] + i]);
     }
   }
   if(checkPosition(objResult)) {
@@ -106,18 +94,10 @@ function battleShip () {
   for (let i = 0; i < keyShip.length; i++) {
     let direction = Math.round(Math.random());
     let index = getIndex();
-    if(direction) {
-      if(shipVertical(board, index, shipCatalog[keyShip[i]][0], shipCatalog[keyShip[i]][1])) {
-        continue;
-      } else {
-        i--;
-      }
+    if(shipPlace(board, index, direction, shipCatalog[keyShip[i]][0], shipCatalog[keyShip[i]][1])) {
+      continue;
     } else {
-      if(shipHorizontal(board, index, shipCatalog[keyShip[i]][0], shipCatalog[keyShip[i]][1])) {
-        continue;
-      } else {
-        i--;
-      }
+      i--;
     }
   }
   console.clear();
